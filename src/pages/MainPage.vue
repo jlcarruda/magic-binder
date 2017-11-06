@@ -1,28 +1,32 @@
 <template>
 <main>
   <v-content>
-    <v-section  fluid>
+    <!-- Parallax -->
+    <v-section fluid>
       <v-parallax class="parallax" height="550" src="/public/frontpage.jpg">
         <v-layout column align-center justify-center>
-            <div class="image-mask"></div>
-            <h1 class="white--text">Magic Binder</h1>
-            <h4 class="white--text">Marketplace de Cartas usadas</h4>
+          <div class="image-mask"></div>
+          <h1 class="white--text">Magic Binder</h1>
+          <h4 class="white--text">Marketplace de Cartas usadas</h4>
             
         </v-layout>
       </v-parallax>
-      <!-- <v-slide-y-transition mode="out-in">
-        <v-layout column align-center>
-          <img src="/public/v.png" alt="Vuetify.js" class="mb-5" />
-          <blockquote>
-            &#8220;First, solve the problem. Then, write the code.&#8221;
-            <footer>
-              <small>
-                <em>&mdash;John Johnson</em>
-              </small>
-            </footer>
-          </blockquote>
+    </v-section>
+
+      <!-- Mais Vendidas -->
+    <v-section fluid>
+      <v-layout column id="mais-vendidos">
+        
+        <v-layout row wrap align-center justify-center id="mais-vendidos-title">
+          <h3 class="ma-5 text-xs-center">Mais vendidas</h3>
         </v-layout>
-      </v-slide-y-transition> -->
+
+        <v-layout row wrap id="mais-vendidos-cardslider">
+          <img src="https://img.scryfall.com/cards/large/en/rix/53.jpg?1509359980" alt="">
+          <!-- TODO: Adicionar o Cardslider -->
+        </v-layout>
+
+      </v-layout>
     </v-section>
   </v-content>
 </main>
@@ -42,10 +46,6 @@ export default {
 
   .parallax h1, h4{
     z-index: 2;
-  }
-
-  .parallax-search{
-
   }
 
   .image-mask {  
