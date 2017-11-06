@@ -22,8 +22,8 @@
         </v-layout>
 
         <v-layout row wrap id="mais-vendidos-cardslider">
-          <img src="https://img.scryfall.com/cards/large/en/rix/53.jpg?1509359980" alt="">
           <!-- TODO: Adicionar o Cardslider -->
+          <cardslider></cardslider>
         </v-layout>
 
       </v-layout>
@@ -32,11 +32,17 @@
 </main>
 </template>
 
+
 <script>
+import CardSlider from '../components/CardSlider';
 export default {
+  components: {
+    cardslider: CardSlider
+  }
 
 }
 </script>
+
 
 <style>
   .parallax{
