@@ -1,12 +1,11 @@
 <template>
-  <v-layout row>
+  <v-layout row v-once>
     <v-layout column>
       <v-flex md6 xs12>
-        <!-- TODO: ImageSlider -->
-        <div class="carousel">
-          <img class="card1" src="https://img.scryfall.com/cards/large/en/rix/53.jpg?1509359980" alt="">
-          <img class="card2" src="https://img.scryfall.com/cards/large/en/rix/53.jpg?1509359980" alt="">
-          <img class="card3" src="https://img.scryfall.com/cards/large/en/rix/53.jpg?1509359980" alt="">
+        <div id="carousel">
+          <img v-for="card in cardlist" :key="card.id" :id="card.id" class="card" :src="card.src">
+            <!-- <img :id="card.id" :src="card.src" :style="card.style"> -->
+          <!-- </img> -->
         </div>
       </v-flex>
       <v-flex md6 xs12>
@@ -18,54 +17,61 @@
 </template>
 
 <script>
+
+let list = [
+  {
+    src: '/public/card.jpg'    
+  },
+  {
+    src: '/public/card.jpg'    
+  },
+  {
+    src: '/public/card.jpg'    
+  },
+  {
+    src: '/public/card.jpg'    
+  },
+  {
+    src: '/public/card.jpg'    
+  }
+]
+
 export default {
   name: 'CardSlider',
   data() {
     return {
-
+      cardlist: list
     }
+  },
+  mounted: () => {
+    console.log($('#carousel'));
+    let space = Math.round($('#carousel').width()/4.8);
+    $(document).ready( () => {
+      $('#carousel').waterwheelCarousel({ 
+        flankingItems: 4,
+        activeClassName:'carousel-center',
+        separation: space,
+        // movedToCenter: function() {
+        //     changeCardInfo();
+        // }
+      })
+    })  
   }
 }
 </script>
 
 <style>
-  .carousel {
+  #carousel {
   width: 80%;
-  height: 386px;
+  height: 500px;
   border: 0;
   margin: 0 auto
 }
 
-.card1  {
-  cursor: pointer;
-  display: inline; left: 66.8px; top: 62.1px; visibility: visible; position: absolute; z-index: 4; opacity: 0.9; width: 183.4px; height: 261.8px;
-}
-
-.card2 {
-  cursor: pointer;
-  display: inline;
-  left: 140.5px; 
-  top: 6px; 
-  visibility:visible; 
-  position:absolute;
-  z-index: 5;
-  opacity: 1; 
-  width: 262px; 
-  height: 374px;
-}
-
-.card3 {
-  cursor: pointer;
-  display: inline;
-  left: 292.8px; 
-  top: 62.1px;
-  visibility: visible;
-  position: absolute; 
-  z-index: 4; 
-  opacity: 0.9; 
-  width: 183.4px; 
-  height: 261.8px;
-}
+ #carousel img {
+    display: hidden; /* hide images until carousel prepares them */
+    cursor: pointer; /* not needed if you wrap carousel items in links */
+  }
 
 .carouselBtn:before {
   width: 0;
@@ -79,7 +85,9 @@ export default {
   right: 20px
 }
 
-img {
-  
+.card {
+  width: 274px;
+  height:378px;
 }
+
 </style>
