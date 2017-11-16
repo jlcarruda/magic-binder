@@ -1,7 +1,8 @@
 <template>
-  <v-layout row v-once>
+  <v-layout row >
     <v-layout column>
       <v-flex md6 xs12>
+        <button @click="getCards">PEGAR CARTAS</button>
         <div id="carousel">
           <img v-for="card in cardlist" :key="card.id" :id="card.id" class="card" :src="card.image_uris.normal">
             <!-- <img :id="card.id" :src="card.src" :style="card.style"> -->
@@ -17,6 +18,8 @@
 </template>
 
 <script>
+// import {API} from '../http-common'
+import axios from 'axios';
 
 let card = { object: 'card',
   id: '39d3c658-1927-4af3-9077-88c4a669c730',
@@ -96,17 +99,36 @@ let card = { object: 'card',
      coolstuffinc: 'http://www.coolstuffinc.com/p/Magic%3A+The+Gathering/Rampaging+Ferocidon?utm_source=scryfall' } }
 
 let list = [
-  card, card, card, card
+  
 ]
 
 export default {
   name: 'CardSlider',
+  // list: [],
   data() {
     return {
       cardlist: list
     }
   },
+  methods: {
+    getCards() {
+      axios.get('http://localhost:3000/card?name=jace+the+mindsculptor', {
+        header: {
+          'Access-Control-Allow-Origin': 'localhost'
+        },
+        responseType: 'text'
+      })
+      .then( res => {
+        list.push(res.data);
+        console.log(list);
+      }).catch( err => {
+        console.log('ERROR', err);
+      })
+    }
+  } ,
   mounted: () => {
+    let self = this;
+    // this.getCards();
     let space = Math.round($('#carousel').width()/4.8);
     $(document).ready( () => {
       $('#carousel').waterwheelCarousel({ 
@@ -118,6 +140,19 @@ export default {
         // }
       })
     })  
+  },
+  updated: () => {
+    let space = Math.round($('#carousel').width()/4.8);
+    $(document).ready( () => {
+      $('#carousel').waterwheelCarousel({ 
+        flankingItems: 4,
+        activeClassName:'carousel-center',
+        separation: space,
+        // movedToCenter: function() {
+        //     changeCardInfo();
+        // }
+      })
+    })    
   }
 }
 </script>
